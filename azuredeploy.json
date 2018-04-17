@@ -35,6 +35,14 @@
                 "2"
             ],
             "defaultValue": "0"
+        },
+        "myParameter1": {
+            "type": "string",
+            "defaultValue": "Qux_Param1"
+        },
+        "myParameter2": {
+            "type": "string",
+            "defaultValue": "Foo_Param2"
         }
     },
     "resources": [{
@@ -61,7 +69,10 @@
         "properties": {
             "serverFarmId": "[parameters('hostingPlanName')]",
             "siteConfig": {
-              "appSettings": []
+                "appSettings": [
+                    { "name": "SITE_MY_PARAMETER_1", "value": "[parameters('myParameter1')]" },
+                    { "name": "SITE_MY_PARAMETER_2", "value": "[parameters('myParameter2')]" }
+                ]
             }
         },
         "resources": [{

@@ -34,6 +34,15 @@ echo 'Current PHP version: ' . phpversion();
 ?>
 
 <br /><br />
+<?php
+  echo "myParameter1: " . getenv('SITE_MY_PARAMETER_1') . "</ br>";
+  echo "myParameter2: " . getenv('SITE_MY_PARAMETER_2') . "</ br>";
+?>
+
+
+
+<br /><br />
+
 <div id="" style="overflow:scroll; width: 800px; height:400px;">
 
 <table style="width:100%">
