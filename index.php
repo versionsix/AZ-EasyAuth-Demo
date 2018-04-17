@@ -35,8 +35,8 @@ echo 'Current PHP version: ' . phpversion();
 
 <br /><br />
 <?php
-  echo "myParameter1: " . getenv('SITE_MY_PARAMETER_1') . " </ br>";
-  echo "myParameter2: " . getenv('SITE_MY_PARAMETER_2') . " </ br>";
+  echo "myParameter1: " . getenv('SITE_MY_PARAMETER_1') . " <br />";
+  echo "myParameter2: " . getenv('SITE_MY_PARAMETER_2') . " <br />";
 ?>
 
 
