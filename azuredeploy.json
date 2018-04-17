@@ -9,7 +9,13 @@
             "type": "string"
         },
         "siteLocation": {
-            "type": "string"
+            "type": "string",
+            "allowedValues": [
+                "UK South",
+                "East US",
+                "West Europe"
+            ],
+            "defaultValue": "UK South"
         },
         "sku": {
             "type": "string",
@@ -29,12 +35,6 @@
                 "2"
             ],
             "defaultValue": "0"
-        },        
-        "repoUrl": {
-            "type": "string"
-        },
-        "branch": {
-            "type": "string"
         }
     },
     "resources": [{
@@ -72,8 +72,8 @@
                 "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
             ],
             "properties": {
-                "RepoUrl": "[parameters('repoUrl')]",
-                "branch": "[parameters('branch')]",
+                "RepoUrl": "https://github.com/xenefix/AZ-App-PHP-EasyAuth-Demo.git",
+                "branch": "master",
                 "IsManualIntegration": true
             }
         }]
