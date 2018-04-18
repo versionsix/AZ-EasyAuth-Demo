@@ -100,7 +100,7 @@
             "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
           ],
           "properties": {
-            "RepoUrl": "https://github.com/xenefix/AZ-App-PHP-EasyAuth-Demo.git",
+            "RepoUrl": "https://github.com/xenefix/AZ-EasyAuth-Demo.git",
             "branch": "master",
             "IsManualIntegration": true
           }
