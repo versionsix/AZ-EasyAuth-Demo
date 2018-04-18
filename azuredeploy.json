@@ -54,7 +54,15 @@
       "properties": {
         "sku": "[parameters('sku')]",
         "workerSize": "[parameters('workerSize')]",
-        "numberOfWorkers": 1
+        "numberOfWorkers": 1,
+        "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot\\source",
+                        "preloadEnabled": false,
+                        "virtualDirectories": null
+                    }
+                ]
       }
     },
     {
