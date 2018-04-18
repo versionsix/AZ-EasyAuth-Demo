@@ -20,7 +20,7 @@ echo 'Current PHP version: ' . phpversion();
 <?php
   // Only try parsing token if it exists
   if (null !== $_SERVER['HTTP_X_MS_TOKEN_AAD_ID_TOKEN']){
-    // The JSON token is 
+    // The JSON token is
     $jwt_token_body = json_decode(base64_decode(explode(".",$_SERVER['HTTP_X_MS_TOKEN_AAD_ID_TOKEN'], 3)[1]));
    echo '<br />Unique_Name: ' . $jwt_token_body->unique_name;
    echo '<br />AD_Name: ' . $jwt_token_body->name;
@@ -29,7 +29,7 @@ echo 'Current PHP version: ' . phpversion();
   } else {
     echo "no valid JWT token found.";
   }
-  
+
 
 ?>
 
@@ -48,7 +48,7 @@ echo 'Current PHP version: ' . phpversion();
 <table style="width:100%">
   <tr>
     <th style="width:30%">Header</th>
-    <th style="width:65%">Value</th> 
+    <th style="width:65%">Value</th>
   </tr>
 <?php
    while (list($var,$value) = each ($_SERVER)) {
