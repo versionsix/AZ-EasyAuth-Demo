@@ -124,14 +124,6 @@
         },
         {
           "apiVersion": "2015-08-01",
-          "name": "ComposerExtension",
-          "type": "siteextensions",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
-          ]
-        },
-        {
-          "apiVersion": "2015-08-01",
           "name": "web",
           "type": "sourcecontrols",
           "dependsOn": [
