@@ -95,6 +95,28 @@
       "resources": [
         {
           "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+          ],
+          "properties": {
+            "phpVersion": "7.2",
+            "httpLoggingEnabled": true,
+            "logsDirectorySizeLimit": 40,
+            "detailedErrorLoggingEnabled": true,
+            "virtualApplications": [
+              {
+                "virtualPath": "/",
+                "physicalPath": "site\\wwwroot\\source",
+                "preloadEnabled": false,
+                "virtualDirectories": null
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
           "name": "ComposerExtension",
           "type": "siteextensions",
           "dependsOn": [
