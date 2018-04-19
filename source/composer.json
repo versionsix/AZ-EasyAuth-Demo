@@ -1,0 +1,13 @@
+{
+    "name": "root/delme",
+    "description": "FOO",
+    "require": {
+        "ehime/hello-world": "^1.0"
+    },
+    "authors": [
+        {
+            "name": "xenefix",
+            "email": "frank@knarf.be"
+        }
+    ]
+}

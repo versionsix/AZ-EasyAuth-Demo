@@ -52,17 +52,18 @@
       "type": "Microsoft.Web/serverFarms",
       "location": "[parameters('siteLocation')]",
       "properties": {
+        "phpVersion": "7.2",
         "sku": "[parameters('sku')]",
         "workerSize": "[parameters('workerSize')]",
         "numberOfWorkers": 1,
         "virtualApplications": [
-                    {
-                        "virtualPath": "/",
-                        "physicalPath": "site\\wwwroot\\source",
-                        "preloadEnabled": false,
-                        "virtualDirectories": null
-                    }
-                ]
+          {
+            "virtualPath": "/",
+            "physicalPath": "site\\wwwroot\\source",
+            "preloadEnabled": false,
+            "virtualDirectories": null
+          }
+        ]
       }
     },
     {
