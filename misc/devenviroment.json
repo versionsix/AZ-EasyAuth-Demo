@@ -94,7 +94,7 @@
             },
             {
               "name": "SCM_POST_DEPLOYMENT_ACTIONS_PATH",
-              "value": "D:\\home\\site\\wwwroot\\post_deployment.cmd"
+              "value": "post_deployment_scripts"
             }
           ]
         }
