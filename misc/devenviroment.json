@@ -1,0 +1,149 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "siteName": {
+      "type": "string",
+      "defaultValue": "FooQuxV"
+    },
+    "hostingPlanName": {
+      "type": "string",
+      "defaultValue": "FooQuxV"
+    },
+    "siteLocation": {
+      "type": "string",
+      "allowedValues": [
+        "UK South",
+        "East US",
+        "West Europe"
+      ],
+      "defaultValue": "UK South"
+    },
+    "sku": {
+      "type": "string",
+      "allowedValues": [
+        "Free",
+        "Shared",
+        "Basic",
+        "Standard"
+      ],
+      "defaultValue": "Free"
+    },
+    "workerSize": {
+      "type": "string",
+      "allowedValues": [
+        "0",
+        "1",
+        "2"
+      ],
+      "defaultValue": "0"
+    },
+    "myParameter1": {
+      "type": "string",
+      "defaultValue": "Qux_Param1"
+    },
+    "myParameter2": {
+      "type": "string",
+      "defaultValue": "Foo_Param2"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-04-01",
+      "name": "[parameters('hostingPlanName')]",
+      "type": "Microsoft.Web/serverFarms",
+      "location": "[parameters('siteLocation')]",
+      "properties": {
+        "phpVersion": "7.2",
+        "sku": "[parameters('sku')]",
+        "workerSize": "[parameters('workerSize')]",
+        "numberOfWorkers": 1,
+        "remoteDebuggingVersion": "VS2012",
+        "virtualApplications": [
+          {
+            "virtualPath": "/",
+            "physicalPath": "site\\wwwroot\\source\\",
+            "preloadEnabled": false,
+            "virtualDirectories": null
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "name": "[parameters('siteName')]",
+      "type": "Microsoft.Web/Sites",
+      "location": "[parameters('siteLocation')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
+      },
+      "properties": {
+        "serverFarmId": "[parameters('hostingPlanName')]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "SITE_MY_PARAMETER_1",
+              "value": "[parameters('myParameter1')]"
+            },
+            {
+              "name": "SITE_MY_PARAMETER_2",
+              "value": "[parameters('myParameter2')]"
+            },
+            {
+              "name": "SCM_POST_DEPLOYMENT_ACTIONS_PATH",
+              "value": "D:\\home\\site\\wwwroot\\post_deployment.cmd"
+            }
+          ]
+        }
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+          ],
+          "properties": {
+            "phpVersion": "7.2",
+            "httpLoggingEnabled": true,
+            "logsDirectorySizeLimit": 40,
+            "detailedErrorLoggingEnabled": true,
+            "virtualApplications": [
+              {
+                "virtualPath": "/",
+                "physicalPath": "site\\wwwroot\\source",
+                "preloadEnabled": false,
+                "virtualDirectories": null
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "ComposerExtension",
+          "type": "siteextensions",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+          ]
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+          ],
+          "properties": {
+            "RepoUrl": "https://github.com/xenefix/AZ-EasyAuth-Demo.git",
+            "branch": "master",
+            "IsManualIntegration": true
+          }
+        }
+      ]
+    }
+  ]
+}
