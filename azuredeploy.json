@@ -3,10 +3,12 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "siteName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "FooQuxV"
     },
     "hostingPlanName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "FooQuxV"
     },
     "siteLocation": {
       "type": "string",
@@ -43,10 +45,13 @@
     "myParameter2": {
       "type": "string",
       "defaultValue": "Foo_Param2"
+    },
+    "connection_string_1": {
+      "type": "string",
+      "defaultValue": "DefaultEndpointsProtocol=https;AccountName=storagesample;AccountKey=<account-key>"
     }
   },
-  "resources": [
-    {
+  "resources": [{
       "apiVersion": "2015-04-01",
       "name": "[parameters('hostingPlanName')]",
       "type": "Microsoft.Web/serverFarms",
@@ -56,14 +61,13 @@
         "sku": "[parameters('sku')]",
         "workerSize": "[parameters('workerSize')]",
         "numberOfWorkers": 1,
-        "virtualApplications": [
-          {
-            "virtualPath": "/",
-            "physicalPath": "site\\wwwroot\\source",
-            "preloadEnabled": false,
-            "virtualDirectories": null
-          }
-        ]
+        "remoteDebuggingVersion": "VS2012",
+        "virtualApplications": [{
+          "virtualPath": "/",
+          "physicalPath": "site\\wwwroot\\source\\",
+          "preloadEnabled": false,
+          "virtualDirectories": null
+        }]
       }
     },
     {
@@ -80,20 +84,27 @@
       "properties": {
         "serverFarmId": "[parameters('hostingPlanName')]",
         "siteConfig": {
-          "appSettings": [
-            {
+          "appSettings": [{
               "name": "SITE_MY_PARAMETER_1",
               "value": "[parameters('myParameter1')]"
             },
             {
               "name": "SITE_MY_PARAMETER_2",
               "value": "[parameters('myParameter2')]"
+            },
+            {
+              "name": "SCM_POST_DEPLOYMENT_ACTIONS_PATH",
+              "value": "post_deployment_scripts"
             }
-          ]
+          ],
+          "connectionStrings": [{
+            "ConnectionString": "[parameters('connection_string_1')]",
+            "Name": "connection_string_1",
+            "Type": 3
+          }]
         }
       },
-      "resources": [
-        {
+      "resources": [{
           "apiVersion": "2015-08-01",
           "name": "web",
           "type": "config",
@@ -105,23 +116,13 @@
             "httpLoggingEnabled": true,
             "logsDirectorySizeLimit": 40,
             "detailedErrorLoggingEnabled": true,
-            "virtualApplications": [
-              {
-                "virtualPath": "/",
-                "physicalPath": "site\\wwwroot\\source",
-                "preloadEnabled": false,
-                "virtualDirectories": null
-              }
-            ]
+            "virtualApplications": [{
+              "virtualPath": "/",
+              "physicalPath": "site\\wwwroot\\source",
+              "preloadEnabled": false,
+              "virtualDirectories": null
+            }]
           }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "name": "ComposerExtension",
-          "type": "siteextensions",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
-          ]
         },
         {
           "apiVersion": "2015-08-01",

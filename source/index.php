@@ -37,6 +37,7 @@ echo 'Current PHP version: ' . phpversion();
 <?php
   echo "myParameter1: " . getenv('SITE_MY_PARAMETER_1') . " <br />";
   echo "myParameter2: " . getenv('SITE_MY_PARAMETER_2') . " <br />";
+  echo "connection_string_1: " . getenv('CUSTOMCONNSTR_connection_string_1') . " <br />";
 ?>
 
 
